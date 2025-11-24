@@ -1,0 +1,51 @@
+{
+    "manifest_version": 3,
+    "name": "GMap WA Sender Pro",
+    "version": "1.0",
+    "description": "Scrape Google Maps leads and send WhatsApp messages directly.",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://www.google.com/*",
+        "<all_urls>"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.google.com/maps/*",
+                "https://*.google.com/maps/*"
+            ],
+            "js": [
+                "content/content_maps.js"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content/content_universal.js"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "https://web.whatsapp.com/*"
+            ],
+            "js": [
+                "content/content_whatsapp.js"
+            ],
+            "run_at": "document_idle"
+        }
+    ]
+}
